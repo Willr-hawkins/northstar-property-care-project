@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="container-site py-section-lg">
+    <p class="eyebrow mb-7">Renovation · Extensions · Property care</p>
+    <h1 class="font-serif text-display font-light text-forest">Homes, carefully<br>made better.</h1>
+    <p class="mt-8 max-w-115 text-lead text-copy">Temporary page to cehck the base template - the real homepage is built in Sprint 2.</p>
+    <div class="mt-8 flex flex-wrap items-center gap-7">
+        <a href="#" class="btn-primary">Request a quote</a>
+        <a href="#" class="link-underline">View our work</a>
+    </div>
+</section>
+
+<section class="bg-ivory">
+    <div class="container-site py-section-md">
+        {% include "components/section_heading.html" with eyebrow="What we do" title="Services" link_url="#" link_text="All services" %}
+    </div>
+</section>
+{% endblock %}
