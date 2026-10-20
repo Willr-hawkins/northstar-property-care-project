@@ -1,0 +1,19 @@
+{
+  "name": "northstar-property-care-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "npx @tailwindcss/cli -i ./static/src/input.css -o ./static/css/output.css --minify",
+    "watch:css": "npx @tailwindcss/cli -i ./static/src/input.css -o ./static/css/output.css --watch",
+    "copy:htmx": "mkdir -p static/js && cp node_modules/htmx.org/dist/htmx.min.js static/js/htmx.min.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "htmx.org": "^2.0.11",
+    "tailwindcss": "^4.3.3"
+  }
+}

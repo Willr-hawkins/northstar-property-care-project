@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+/* Scan Django templates in every app plus the project-level folder */
+@source "../../templates";
+@source "../../**/templates";
+
+@theme {
+  /* Colour */
+  --color-forest: #25382F;
+  --color-ivory: #EAE5DA;
+  --color-offwhite: #F8F7F3;
+  --color-charcoal: #292B29;
+  --color-terracotta: #B87551;     /* rules, large numerals, marks only */
+  --color-terracotta-deep: #8A4F31; /* small accent text and links */
+  --color-terracotta-light: #C9895F; /* large numerals on forest */
+  --color-muted: #5B5E59;
+  --color-copy: #3F423E;
+
+  /* Typography */
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-sans: "Hanken Grotesk", system-ui, sans-serif;
+
+  --text-display: clamp(3rem, 6.4vw, 5.75rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.02em;
+
+  --text-h2: clamp(2.125rem, 3.6vw, 3.25rem);
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.015em;
+
+  --text-h3: 1.75rem;
+  --text-h3--line-height: 1.2;
+
+  --text-lead: 1.1875rem;
+  --text-lead--line-height: 1.65;
+
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.6;
+
+  --text-eyebrow: 0.8125rem;
+  --text-eyebrow--letter-spacing: 0.18em;
+
+  /* Spacing */
+  --spacing-section-sm: 4rem;   /* 64px */
+  --spacing-section-md: 6rem;   /* 96px */
+  --spacing-section-lg: 8rem;   /* 128px */
+
+  /* Layout */
+  --container-site: 77.5rem;    /* 1240px -> max-w-site */
+}
+
+@layer base {
+  body {
+    @apply bg-offwhite text-charcoal font-sans text-body antialiased;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-terracotta);
+    outline-offset: 3px;
+  }
+}
