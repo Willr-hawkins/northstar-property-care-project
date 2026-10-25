@@ -39,7 +39,7 @@ class Enquiry(TimeStampModel):
     )
     postcode = models.CharField(max_length=10)
     project_description = models.TextField()
-    preffered_contact_method = models.CharField(
+    preferred_contact_method = models.CharField(
         max_length=10, choices=ContactMethod.choices, blank=True
     )
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.NEW)
