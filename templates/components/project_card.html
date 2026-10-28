@@ -1,0 +1,12 @@
+{# Project card. Expects `project`; pass `large=True` for the tall featured card. #}
+{# href is "#" until the project detail page exists (Sprint 2, Projects task). #}
+<a href="#" class="group block text-charcoal no-underline">
+  <div class="overflow-hidden bg-ivory">
+    {% if project.featured_image %}
+      <img src="{{ project.featured_image.url }}" alt="{{ project.featured_image_alt }}" loading="lazy" class="w-full object-cover transition-transform duration-700 group-hover:scale-[1.02] {% if large %}aspect-4/5{% else %}aspect-4/3{% endif %}">
+    {% endif %}
+  </div>
+  <p class="mt-5 mb-1.5 text-xs font-medium uppercase tracking-[.16em] text-terracotta-deep">{{ project.get_category_display }}</p>
+  <h3 class="font-serif leading-tight text-forest {% if large %}text-[28px]{% else %}text-2xl{% endif %}">{{ project.title }}</h3>
+  <p class="mt-1.5 text-[15px] text-muted">{{ project.summary }}{% if project.location %} · {{ project.location }}{% endif %}</p>
+</a>

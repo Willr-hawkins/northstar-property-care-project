@@ -1,19 +1,143 @@
 {% extends "base.html" %}
 
+{% block title %}Northstar Property Care — Renovations, extensions &amp; property care{% endblock %}
+{% block meta_description %}Considered renovations, extensions, kitchens, bathrooms and property maintenance across Bristol and Bath. Northstar Property Care is a fictional company created as a portfolio demo.{% endblock %}
+
 {% block content %}
-<section class="container-site py-section-lg">
-    <p class="eyebrow mb-7">Renovation · Extensions · Property care</p>
-    <h1 class="font-serif text-display font-light text-forest">Homes, carefully<br>made better.</h1>
-    <p class="mt-8 max-w-115 text-lead text-copy">Temporary page to cehck the base template - the real homepage is built in Sprint 2.</p>
-    <div class="mt-8 flex flex-wrap items-center gap-7">
+
+{# ---------- Hero ---------- #}
+<section class="container-site pt-16 pb-16 md:pt-22">
+  <div class="grid items-end gap-14 lg:grid-cols-2">
+    <div>
+      <p class="eyebrow mb-7">Renovation · Extensions · Property care</p>
+      <h1 class="font-serif text-display font-light text-forest">Homes, carefully<br>made better.</h1>
+    </div>
+    <div class="lg:pb-2.5">
+      <p class="mb-8 max-w-115 text-lead text-copy">We plan and build considered renovations, extensions and kitchens — then look after the house long after the dust settles.</p>
+      <div class="flex flex-wrap items-center gap-7">
         <a href="#" class="btn-primary">Request a quote</a>
         <a href="#" class="link-underline">View our work</a>
+      </div>
     </div>
+  </div>
 </section>
 
-<section class="bg-ivory">
-    <div class="container-site py-section-md">
-        {% include "components/section_heading.html" with eyebrow="What we do" title="Services" link_url="#" link_text="All services" %}
+{% if hero_project and hero_project.featured_image %}
+<div class="container-site">
+  <img src="{{ hero_project.featured_image.url }}" alt="{{ hero_project.featured_image_alt }}" fetchpriority="high" class="h-[clamp(320px,46vw,640px)] w-full object-cover">
+</div>
+{% endif %}
+
+{# ---------- Value ---------- #}
+<section class="container-site py-section-lg">
+  <div class="grid gap-16 lg:grid-cols-2">
+    <h2 class="font-serif text-h2 font-light text-forest">One team, from the first sketch to the final snag.</h2>
+    <div>
+      <p class="mb-10 text-copy">Most renovations go wrong in the gaps between trades. We keep design, building and aftercare under one roof, so there is always one person who knows your house and answers your call.</p>
+      <dl class="grid gap-8 border-t border-charcoal/14 pt-8 sm:grid-cols-3">
+        <div>
+          <dt class="mb-2 font-serif text-[22px] text-forest">One contact</dt>
+          <dd class="text-[15px] text-muted">A named project lead from survey to handover.</dd>
+        </div>
+        <div>
+          <dt class="mb-2 font-serif text-[22px] text-forest">Itemised quotes</dt>
+          <dd class="text-[15px] text-muted">Every cost written down before work begins.</dd>
+        </div>
+        <div>
+          <dt class="mb-2 font-serif text-[22px] text-forest">Aftercare</dt>
+          <dd class="text-[15px] text-muted">Maintenance plans once the build is done.</dd>
+        </div>
+      </dl>
     </div>
+  </div>
 </section>
+
+{# ---------- Services ---------- #}
+{% if services %}
+<section class="bg-ivory">
+  <div class="container-site py-section-md">
+    {% include "components/section_heading.html" with eyebrow="What we do" title="Services" link_url="#" link_text="All services" %}
+    <div class="border-t border-charcoal/18">
+      {% for service in services %}
+        {% include "components/service_row.html" with number=forloop.counter %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{# ---------- Featured projects ---------- #}
+{% if featured_projects %}
+<section class="container-site py-section-lg">
+  {% include "components/section_heading.html" with eyebrow="Selected work" title="Recent projects" link_url="#" link_text="View all projects" %}
+  <div class="grid gap-10 md:grid-cols-2">
+    {% for project in featured_projects %}
+      <div class="{% if forloop.first %}md:row-span-2{% endif %}">
+        {% include "components/project_card.html" with large=forloop.first %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{# ---------- Process ---------- #}
+<section class="bg-forest text-offwhite">
+  <div class="container-site py-section-md">
+    <p class="mb-4 text-eyebrow font-medium uppercase text-[#E3B699]">How we work</p>
+    <h2 class="mb-16 max-w-175 font-serif text-h2 font-light">A clear process, so you always know what happens next.</h2>
+    <ol class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      {% for title, description in process_steps %}
+        <li class="border-t border-offwhite/25 pt-7">
+          <p class="mb-4 font-serif text-[44px] leading-none font-light text-terracotta-light" aria-hidden="true">{{ forloop.counter|stringformat:"02d" }}</p>
+          <h3 class="mb-2.5 font-serif text-2xl">{{ title }}</h3>
+          <p class="text-[15px] text-offwhite/80">{{ description }}</p>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+
+{# ---------- Testimonial (illustrative) ---------- #}
+<section class="mx-auto max-w-250 px-5 py-section-lg text-center sm:px-8">
+  <svg class="mx-auto mb-8" width="40" height="40" viewBox="0 0 26 26" aria-hidden="true">
+    <path d="M13 1 L15.2 10.8 L25 13 L15.2 15.2 L13 25 L10.8 15.2 L1 13 L10.8 10.8 Z" fill="none" stroke="var(--color-terracotta)" stroke-width="1.2" stroke-linejoin="round"/>
+  </svg>
+  <figure>
+    <blockquote>
+      <p class="font-serif text-[clamp(1.75rem,3vw,2.625rem)] leading-snug font-light text-forest">“They treated our house as if it were their own — and told us about every decision before they made it.”</p>
+    </blockquote>
+    <figcaption class="mt-8 text-[15px] text-muted">
+      Illustrative client · Kitchen extension<br>
+      <span class="text-[13px]">Sample testimonial for this demo</span>
+    </figcaption>
+  </figure>
+</section>
+
+{# ---------- Service area ---------- #}
+<section class="border-t border-charcoal/12">
+  <div class="container-site grid gap-16 py-section-md lg:grid-cols-2">
+    <div>
+      <p class="eyebrow mb-4">Where we work</p>
+      <h2 class="mb-6 font-serif text-h2 font-light text-forest">Bristol, Bath and the villages between.</h2>
+      <p class="max-w-115 text-copy">Not sure if you're in our area? Send your postcode with your enquiry and we'll let you know.</p>
+    </div>
+    <ul class="grid grid-cols-2 gap-x-8 self-end">
+      {% for area in service_areas %}
+        <li class="border-b border-charcoal/14 py-4 font-serif text-[21px] text-forest">{{ area }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+{# ---------- CTA band ---------- #}
+<section class="bg-ivory">
+  <div class="container-site flex flex-wrap items-center justify-between gap-10 py-section-md">
+    <div class="max-w-160">
+      <h2 class="mb-4 font-serif text-[clamp(2.25rem,4vw,3.75rem)] leading-[1.05] font-light tracking-[-.02em] text-forest">Tell us about your home.</h2>
+      <p class="text-copy">A short form, a reply within two working days, and no obligation.</p>
+    </div>
+    <a href="#" class="btn-primary px-9 text-[17px]">Request a quote</a>
+  </div>
+</section>
+
 {% endblock %}

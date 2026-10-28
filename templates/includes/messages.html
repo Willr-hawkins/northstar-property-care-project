@@ -1,11 +1,11 @@
 {# Always rendered so HTMX responses can swap messages in later (hx-swap-oob) #}
 <div id="messages" role="status" aria-live="polite" class="container-site">
   {% for message in messages %}
-    <div class="mt-6 px-5 py-4 text-[15px]
+  <div class="mt-6 px-5 py-4 text-[15px]
                 {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}bg-forest text-offwhite
                 {% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}border border-terracotta-deep bg-ivory text-charcoal
                 {% else %}bg-ivory text-charcoal{% endif %}">
-      {{ message }}
-    </div>
+    {{ message }}
+  </div>
   {% endfor %}
 </div>

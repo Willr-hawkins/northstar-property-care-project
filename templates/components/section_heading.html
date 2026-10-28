@@ -1,4 +1,7 @@
-{# Usage: {% include "components/section_heading.html" with eyebrow="Selected work" title="Recent projects" link_url="#" link_text="View all projects" %} #}
+{% comment %}
+  Usage:
+  {% include "components/section_heading.html" with eyebrow="Selected work" title="Recent projects" link_url="#" link_text="View all projects" %}
+{% endcomment %}
 <div class="mb-14 flex flex-wrap items-end justify-between gap-6">
   <div>
     {% if eyebrow %}<p class="eyebrow mb-4">{{ eyebrow }}</p>{% endif %}
