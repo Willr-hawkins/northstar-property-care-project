@@ -1,6 +1,5 @@
 {# Numbered service row. Expects `service` and `number` (e.g. forloop.counter). #}
-{# href is "#" until the service detail page exists (Sprint 2, Services task). #}
-<a href="#" class="group grid grid-cols-[3rem_minmax(0,1fr)_2rem] items-baseline gap-x-6 gap-y-2 border-b border-charcoal/18 py-8 text-charcoal no-underline md:grid-cols-[4rem_minmax(0,1fr)_minmax(0,1.2fr)_2.5rem]">
+<a href="{{ service.get_absolute_url }}" class="group grid grid-cols-[3rem_minmax(0,1fr)_2rem] items-baseline gap-x-6 gap-y-2 border-b border-charcoal/18 py-8 text-charcoal no-underline md:grid-cols-[4rem_minmax(0,1fr)_minmax(0,1.2fr)_2.5rem]">
   <span class="font-serif text-lg text-terracotta-deep">{{ number|stringformat:"02d" }}</span>
   <span class="font-serif text-[clamp(1.5rem,2.4vw,2rem)] leading-tight text-forest">{{ service.title }}</span>
   <span class="col-start-2 row-start-2 text-base text-copy md:col-start-3 md:row-start-1">{{ service.short_description }}</span>

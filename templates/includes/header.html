@@ -13,7 +13,7 @@
 
     {# Desktop navigation — links become {% url %} tags as each page is built in Sprint 2 #}
     <nav aria-label="Main" class="hidden items-center gap-8 text-[15px] md:flex">
-      <a href="#" class="text-charcoal no-underline hover:text-terracotta-deep">Services</a>
+      <a href="{% url 'services:list' %}" class="text-charcoal no-underline hover:text-terracotta-deep">Services</a>
       <a href="#" class="text-charcoal no-underline hover:text-terracotta-deep">Projects</a>
       <a href="#" class="text-charcoal no-underline hover:text-terracotta-deep">About</a>
       <a href="#" class="text-charcoal no-underline hover:text-terracotta-deep">Contact</a>
@@ -35,7 +35,7 @@
   {# Mobile navigation #}
   <nav id="mobile-nav" aria-label="Main" class="border-t border-charcoal/12 md:hidden" hidden>
     <ul class="container-site flex flex-col py-4">
-      <li><a href="#" class="block py-3 font-serif text-2xl text-forest no-underline">Services</a></li>
+      <li><a href="{% url 'services:list' %}" class="block py-3 font-serif text-2xl text-forest no-underline">Services</a></li>
       <li><a href="#" class="block py-3 font-serif text-2xl text-forest no-underline">Projects</a></li>
       <li><a href="#" class="block py-3 font-serif text-2xl text-forest no-underline">About</a></li>
       <li><a href="#" class="block py-3 font-serif text-2xl text-forest no-underline">Contact</a></li>

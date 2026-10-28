@@ -56,7 +56,8 @@
 {% if services %}
 <section class="bg-ivory">
   <div class="container-site py-section-md">
-    {% include "components/section_heading.html" with eyebrow="What we do" title="Services" link_url="#" link_text="All services" %}
+    {% url 'services:list' as services_url %}
+    {% include "components/section_heading.html" with eyebrow="What we do" title="Services" link_url=services_url link_text="All services" %}
     <div class="border-t border-charcoal/18">
       {% for service in services %}
         {% include "components/service_row.html" with number=forloop.counter %}

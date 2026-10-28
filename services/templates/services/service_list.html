@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Services — Northstar Property Care{% endblock %}
+{% block meta_description %}Home renovations, kitchens and bathrooms, extensions and property maintenance across Bristol and Bath. Northstar Property Care is a fictional company created as a portfolio demo.{% endblock %}
+
+{% block content %}
+
+<section class="container-site pt-24 pb-14">
+  <p class="eyebrow mb-6">What we do</p>
+  <div class="grid items-end gap-14 lg:grid-cols-2">
+    <h1 class="font-serif text-display font-light text-forest">Services</h1>
+    <p class="max-w-115 text-lead text-copy">Four ways we help, all with one named project lead, an itemised quote and aftercare once the work is done.</p>
+  </div>
+</section>
+
+<section class="container-site pb-section-lg">
+  {% for service in services %}
+    <article class="grid items-center gap-10 border-t border-charcoal/18 py-16 md:grid-cols-2 md:gap-16">
+      <a href="{{ service.get_absolute_url }}" class="group block overflow-hidden bg-ivory {% if forloop.counter|divisibleby:2 %}md:order-last{% endif %}" tabindex="-1" aria-hidden="true">
+        {% if service.image %}
+          <img src="{{ service.image.url }}" alt="" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}" class="aspect-4/3 w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]">
+        {% endif %}
+      </a>
+      <div>
+        <p class="mb-5 font-serif text-xl text-terracotta-deep">{{ forloop.counter|stringformat:"02d" }}</p>
+        <h2 class="mb-5 font-serif text-h2 font-light text-forest">
+          <a href="{{ service.get_absolute_url }}" class="text-forest no-underline hover:text-terracotta-deep">{{ service.title }}</a>
+        </h2>
+        <p class="mb-8 max-w-115 text-copy">{{ service.short_description }}</p>
+        <a href="{{ service.get_absolute_url }}" class="link-underline">
+          More about {{ service.title|lower }}<span class="sr-only"> service</span>
+        </a>
+      </div>
+    </article>
+  {% empty %}
+    <p class="border-t border-charcoal/18 py-16 text-copy">Our services are being updated — please check back soon, or get in touch.</p>
+  {% endfor %}
+</section>
+
+<section class="bg-forest text-offwhite">
+  <div class="container-site flex flex-wrap items-center justify-between gap-10 py-section-md">
+    <h2 class="max-w-155 font-serif text-[clamp(2rem,3.6vw,3.25rem)] leading-[1.1] font-light">Not sure which service you need?</h2>
+    <a href="#" class="inline-flex min-h-11 items-center rounded-xs bg-offwhite px-9 py-4 text-[17px] font-medium text-forest no-underline transition-colors duration-300 hover:bg-ivory">Request a quote</a>
+  </div>
+</section>
+
+{% endblock %}
