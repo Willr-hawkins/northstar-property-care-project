@@ -7,7 +7,7 @@ PROCESS_STEPS = [
     ("Visit", "We come and see the house, listen, and take measurements."),
     ("Quote", "An itemised quote and programme, with no hidden extras."),
     ("Build", "One project lead and weekly updates until handover."),
-    ("Care", "Snagging, aftercare and an optional maintence plan.")
+    ("Care", "Snagging, aftercare and an optional maintenance plan."),
 ]
 
 SERVICE_AREAS = [

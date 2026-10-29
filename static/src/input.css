@@ -74,4 +74,56 @@
   .eyebrow {
     @apply text-eyebrow font-medium uppercase text-terracotta-deep;
   }
+
+  /* HTMX: dim results while a filter request is in flight */
+  .htmx-request .js-loading-dim {
+    opacity: 0.4;
+  }
+  .js-loading-dim {
+    transition: opacity 0.3s ease;
+  }
+
+  /* Before/after slider */
+  .before-after__before {
+    clip-path: inset(0 calc(100% - var(--position)) 0 0);
+  }
+  .before-after__divider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--position);
+    width: 2px;
+    margin-left: -1px;
+    background: var(--color-offwhite);
+    pointer-events: none;
+  }
+  .before-after__handle {
+    position: absolute;
+    top: 50%;
+    left: var(--position);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    margin: -1.625rem 0 0 -1.625rem;
+    border-radius: 9999px;
+    background: var(--color-offwhite);
+    color: var(--color-forest);
+    box-shadow: 0 1px 3px rgb(41 43 41 / 0.25);
+    pointer-events: none;
+  }
+  .before-after__range {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: ew-resize;
+  }
+  .before-after:focus-within .before-after__handle {
+    outline: 2px solid var(--color-terracotta);
+    outline-offset: 3px;
+  }
 }

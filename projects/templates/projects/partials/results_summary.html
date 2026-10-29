@@ -1,0 +1,2 @@
+{# Live region: screen readers announce the new count after each filter. Updated out-of-band on HTMX responses. #}
+<p id="results-summary" role="status" class="mb-4 text-sm text-muted"{% if oob %} hx-swap-oob="true"{% endif %}>{{ results_summary }}</p>

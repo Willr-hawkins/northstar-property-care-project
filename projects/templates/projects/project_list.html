@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}{% if active_label %}{{ active_label }} projects{% else %}Projects{% endif %} — Northstar Property Care{% endblock %}
+{% block meta_description %}Recent renovations, extensions, kitchens, bathrooms and maintenance work across Bristol and Bath. Northstar Property Care is a fictional company created as a portfolio demo.{% endblock %}
+
+{% block content %}
+
+<section class="container-site pt-24 pb-14">
+    <p class="eyebrow mb-6">Our work</p>
+    <div class="grid items-end gap-14 lg:grid-cols-2">
+        <h1 class="font-serif text-display font-light text-forest">Projects</h1>
+        <p class="max-w-115 text-lead text-copy">A selection of recente renovations, extensions and repairs across Bristol and Bath.</p>
+    </div>
+</section>
+
+<section class="container-site pb-section-lg">
+    {% include "projects/partials/results_summary.html" %}
+    {% include "projects/partials/project_results.html" %}
+</section>
+
+<section class="bg-ivory">
+    <div class="container-site flex flex-wrap items-center justify-between gap-10 py-section-md">
+        <h2 class="max-w-115 font-serif text-[clamp(2rem,3.6vw,3.25rem)] leading-[1.1] font-light text-forest">Have a project in mind?"></h2>
+        <a href="#" class="btn-primary px-9 text-[17px]">Request a quote</a>
+    </div>
+</section>
+
+{% endblock %}

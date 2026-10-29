@@ -1,0 +1,31 @@
+{# Returned on its own for HTMX filter requests; included in the full page otherwise. #}
+<div id="project-results">
+  <nav aria-label="Filter projects by category" class="flex flex-wrap items-center gap-2.5 border-y border-charcoal/18 py-6" hx-target="#project-results" hx-swap="outerHTML" hx-push-url="true" hx-indicator="#project-results">
+    {% for category in categories %}
+      {% if category.key %}{% url 'projects:list' as list_url %}{% with href=list_url|add:"?category="|add:category.key %}
+        <a id="filter-{{ category.key }}" href="{{ href }}" hx-get="{{ href }}" {% if category.active %}aria-current="true"{% endif %} class="inline-flex min-h-11 items-center gap-2 rounded-xs border px-4.5 text-[15px] font-medium no-underline transition-colors duration-300 {% if category.active %}border-forest bg-forest text-offwhite{% else %}border-charcoal/25 text-charcoal hover:border-forest{% endif %}">{{ category.label }} <span class="text-[13px] {% if category.active %}text-offwhite/70{% else %}text-muted{% endif %}">{{ category.count }}</span></a>
+      {% endwith %}{% else %}{% url 'projects:list' as href %}
+        <a id="filter-all" href="{{ href }}" hx-get="{{ href }}" {% if category.active %}aria-current="true"{% endif %} class="inline-flex min-h-11 items-center gap-2 rounded-xs border px-4.5 text-[15px] font-medium no-underline transition-colors duration-300 {% if category.active %}border-forest bg-forest text-offwhite{% else %}border-charcoal/25 text-charcoal hover:border-forest{% endif %}">{{ category.label }} <span class="text-[13px] {% if category.active %}text-offwhite/70{% else %}text-muted{% endif %}">{{ category.count }}</span></a>
+      {% endif %}
+    {% endfor %}
+  </nav>
+
+  <div class="js-loading-dim pt-10">
+    {% if projects %}
+      <div class="grid gap-x-10 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
+        {% for project in projects %}
+          {% include "components/project_card.html" %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="border-b border-charcoal/14 py-20 text-center">
+        <p class="mb-3 font-serif text-3xl text-forest">No {{ active_label|lower }} projects to show yet.</p>
+        <p class="mb-7 text-muted">We're photographing some recent work. In the meantime, browse everything.</p>
+        {% url 'projects:list' as all_url %}
+        <a href="{{ all_url }}" hx-get="{{ all_url }}" hx-target="#project-results" hx-swap="outerHTML" hx-push-url="true" class="link-underline">View all projects</a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% if is_htmx %}{% include "projects/partials/results_summary.html" with oob=True %}{% endif %}

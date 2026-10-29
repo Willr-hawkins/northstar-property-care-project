@@ -16,7 +16,7 @@
       <p class="mb-8 max-w-115 text-lead text-copy">We plan and build considered renovations, extensions and kitchens — then look after the house long after the dust settles.</p>
       <div class="flex flex-wrap items-center gap-7">
         <a href="#" class="btn-primary">Request a quote</a>
-        <a href="#" class="link-underline">View our work</a>
+        <a href="{% url 'projects:list' %}" class="link-underline">View our work</a>
       </div>
     </div>
   </div>
@@ -70,7 +70,8 @@
 {# ---------- Featured projects ---------- #}
 {% if featured_projects %}
 <section class="container-site py-section-lg">
-  {% include "components/section_heading.html" with eyebrow="Selected work" title="Recent projects" link_url="#" link_text="View all projects" %}
+  {% url 'projects:list' as projects_url %}
+  {% include "components/section_heading.html" with eyebrow="Selected work" title="Recent projects" link_url=projects_url link_text="View all projects" %}
   <div class="grid gap-10 md:grid-cols-2">
     {% for project in featured_projects %}
       <div class="{% if forloop.first %}md:row-span-2{% endif %}">
