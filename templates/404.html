@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Page not found - Northstar Property Care{% endblock %}
+{% block extra_head %}<meta name="robots" content="noindex">{% endblock %}
+
+{% block content %}
+<section class="container-site py-section-lg">
+    <p class="eyebrow mb-6">Error 404</p>
+    <h1 class="mb-8 max-w-200 font-serif text-display font-light text-forest">We can't find this page.</h1>
+    <p class="mb-12 max-w-115 text-lead text-copy">It may have been moved, or the link may be out of date. These are good places to start:</p>
+    <ul class="max-w-175 border-t border-charcoal/18">
+        <li><a href="{% url 'core:home' %}" class="group flex items-baseline justify-between border-b border-charcoal/18 py-6 font-serif text-[28px] text-forest no-underline">Home <span aria-hidden="true" class="text-[22px] transition-transform duration-500 group-hover:translate-x-1.5">→</span></a></li>
+        <li><a href="{% url 'services:list' %}" class="group flex items-baseline justify-between border-b border-charcoal/18 py-6 font-serif text-[28px] text-forest no-underline">Services <span aria-hidden="true" class="text-[22px] transition-transform duration-500 group-hover:translate-x-1.5">→</span></a></li>
+        <li><a href="{% url 'projects:list' %}" class="group flex items-baseline justify-between border-b border-charcoal/18 py-6 font-serif text-[28px] text-forest no-underline">Projects <span aria-hidden="true" class="text-[22px] transition-transform duration-500 group-hover:translate-x-1.5">→</span></a></li>
+    </ul>
+</section>
+{% endblock %}

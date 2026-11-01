@@ -1,5 +1,6 @@
 import pytest
 from django.urls import reverse
+from django.template.loader import render_to_string
 
 from projects.models import Project
 from services.models import Service
@@ -85,3 +86,29 @@ def test_about_page_labels_team_as_fictional(client):
     content = client.get(reverse("core:about")).content.decode()
     assert "Sarah Jones" in content
     assert "Team members are fictional" in content
+
+
+def test_unknown_url_uses_custom_404(client):
+    response = client.get("/this-page-does-not-exist/")
+    assert response.status_code == 404
+    assert "404.html" in [t.name for t in response.templates]
+    assert "We can't find this page." in response.content.decode()
+
+
+def test_500_templates_renders_without_any_context():
+    # Django renders 500.html with no request or context processors, so it must stand alone.
+    html = render_to_string("500.html")
+    assert "Something went wrong" in html
+    assert "{%" not in html and "{{" not in html
+
+
+def test_privacy_page_lists_what_the_form_collects(client):
+    content = client.get(reverse("core:privacy")).content.decode()
+    assert "What we collect" in content
+    assert "postcode" in content
+    assert "portfolio demo" in content
+
+
+def test_footer_links_to_privacy_notice(client):
+    content = client.get(reverse("core:home")).content.decode()
+    assert f'href="{reverse("core:privacy")}"' in content

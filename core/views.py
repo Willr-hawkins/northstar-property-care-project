@@ -45,3 +45,6 @@ class AboutView(TemplateView):
         context["team"] = TEAM
         return context
 
+
+class PrivacyView(TemplateView):
+    template_name = "core/privacy.html"
