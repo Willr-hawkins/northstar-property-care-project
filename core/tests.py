@@ -73,3 +73,15 @@ def test_home_renders_with_no_content(client):
     response = client.get(reverse("core:home"))
     assert response.status_code == 200
     assert response.context["hero_project"] is None
+
+
+def test_about_page_returns_200(client):
+    response = client.get(reverse("core:about"))
+    assert response.status_code == 200
+    assert "core/about.html" in [t.name for t in response.templates]
+
+
+def test_about_page_labels_team_as_fictional(client):
+    content = client.get(reverse("core:about")).content.decode()
+    assert "Sarah Jones" in content
+    assert "Team members are fictional" in content
