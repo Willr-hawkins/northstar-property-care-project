@@ -1,5 +1,5 @@
-{# Project card. Expects `project`; pass `large=True` for the tall featured card. #}
-<a href="{{ project.get_absolute_url }}" class="group block text-charcoal no-underline">
+{# Project card. Expects `project`; pass `large=True` for the tall featured card. Staggers when inside a {% for %} loop. #}
+<a href="{{ project.get_absolute_url }}" data-reveal {% if forloop %}style="--reveal-delay: {{ forloop.counter0 }}"{% endif %} class="group block text-charcoal no-underline">
   <div class="overflow-hidden bg-ivory">
     {% if project.featured_image %}
       <img src="{{ project.featured_image.url }}" alt="{{ project.featured_image_alt }}" loading="lazy" class="w-full object-cover transition-transform duration-700 group-hover:scale-[1.02] {% if large %}aspect-4/5{% else %}aspect-4/3{% endif %}">

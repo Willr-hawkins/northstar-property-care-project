@@ -5,6 +5,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    document.documentElement.classList.add("js");
+    setTimeout(function () {
+      if (!window.northstarReveal) document.documentElement.classList.add("reveal-fallback");
+    }, 2500);
+  </script>
 
   <title>{% block title %}Northstar Property Care — Renovation &amp; Property Care{% endblock %}</title>
   <meta name="description"
@@ -28,6 +34,7 @@
   <link rel="stylesheet" href="{% static 'css/output.css' %}">
   <script src="{% static 'js/htmx.min.js' %}" defer></script>
   <script src="{% static 'js/nav.js' %}" defer></script>
+  <script src="{% static 'js/reveal.js' %}" defer></script>
   {% block extra_head %}{% endblock %}
 </head>
 

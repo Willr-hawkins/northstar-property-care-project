@@ -1,111 +1,111 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}About - Northstar Property Care{% endblock %}
+{% block title %}About — Northstar Property Care{% endblock %}
 {% block meta_description %}How Northstar Property Care works: one team from design to aftercare, honest itemised quotes and careful craftsmanship. Northstar is a fictional company created as a portfolio demo.{% endblock %}
 
 {% block content %}
 
 {# ---------- Intro ---------- #}
 <section class="container-site pt-24 pb-16">
-    <p class="eyebrow mb-6">About Us</p>
-    <div class="grid items-end gap-14 lg:grid-cols-2">
-        <h1 class="font-serif text-display font-light text-forest">Built on care,<br>not shortcuts.</h1>
-        <p class="max-w-115 text-lead text-copy">We're a small team of designers and tradespeople who believe a good renovation should feel calm, clear and properly finished.</p>
-    </div>
+  <p class="eyebrow mb-6">About us</p>
+  <div class="grid items-end gap-14 lg:grid-cols-2" data-reveal>
+    <h1 class="font-serif text-display font-light text-forest">Built on care,<br>not shortcuts.</h1>
+    <p class="max-w-115 text-lead text-copy">We're a small team of designers and tradespeople who believe a good renovation should feel calm, clear and properly finished.</p>
+  </div>
 </section>
 
 <div class="container-site">
-    <img src="{% static 'images/about-craftsmanship.webp' %}" alt="A carpenter's hand running a tape measure along a length of timber, with sawdust and warm sunlight across the workshop floor" fetchpriority="high" class="h-[clamp(300px,42vw,580px)] w-full object-cover">
+  <img src="{% static 'images/about-craftsmanship.webp' %}" alt="A carpenter's hand running a tape measure along a length of timber, with sawdust and warm sunlight across the workshop floor" fetchpriority="high" class="h-[clamp(300px,42vw,580px)] w-full object-cover">
 </div>
 
 {# ---------- Story ---------- #}
 <section class="container-site py-section-lg">
-    <div class="grid gap-16 lg:grid-cols-2">
-        <h2 class="font-serif text-h2 font-light text-forest">Why we work the way we do.</h2>
-        <div class="text-copy [&>p]:mb-5">
-            <p>Northstar started with a simple frustration: too many renovations go wrong in the gaps between trades. The plasterer blames the electrician, the quote doesn't  match the bill, and nobody is quite sure who's in charge.</p>
-            <p>So we built a team that covers the whole job, from the first measured visit through design, building and finishing, and that stays around afterwards to look after the house.</p>
-            <p>Every project has one named lead who knows your home and answers your calls. It's not complicated, but it makes all the difference.</p>
-        </div>
+  <div class="grid gap-16 lg:grid-cols-2" data-reveal>
+    <h2 class="font-serif text-h2 font-light text-forest">Why we work the way we do.</h2>
+    <div class="text-copy [&>p]:mb-5">
+      <p>Northstar started with a simple frustration: too many renovations go wrong in the gaps between trades. The plasterer blames the electrician, the quote doesn't match the bill, and nobody is quite sure who's in charge.</p>
+      <p>So we built a team that covers the whole job, from the first measured visit through design, building and finishing, and that stays around afterwards to look after the house.</p>
+      <p>Every project has one named lead who knows your home and answers your calls. It's not complicated, but it makes all the difference.</p>
     </div>
+  </div>
 </section>
 
 {# ---------- Values ---------- #}
 <section class="bg-ivory">
-    <div class="container-site py-section-md">
-        {% include "components/section_heading.html" with eyebrow="What we value" title="Three things we won't compromise on" %}
-        <dl class="border-t border-charcoal/18">
-            <div class="grid grid-cols-[3rem_minmax(0,1fr)] gap-x-6 gap-y-2 border-b border-charcoal/18 py-8 md:grid-cols-[4rem_minmax(0,1fr)_minmax(0,1.2fr)]">
-                <span aria-hidden="true" class="font-serif text-lg text-terracotta-deep">01</span>
-                <dt class="font-serif text-[clamp(1.5rem,2.4vw,2rem)] leading-tight text-forest">Honest from the start</dt>
-                <dd class="col-start-2 text-copy md:col-start-3">Itemised quotes, a written programme and no surprises on the final bill. If something changes on site, you'll hear about it before we act on it.</dd>
-            </div>
-            <div class="grid grid-cols-[3rem_minmax(0,1fr)] gap-x-6 gap-y-2 border-b border-charcoal/18 py-8 md:grid-cols-[4rem_minmax(0,1fr)_minmax(0,1.2fr)]">
-                <span aria-hidden="true" class="font-serif text-lg text-terracotta-deep">02</span>
-                <dt class="font-serif text-[clamp(1.5rem,2.4vw,2rem)] leading-tight text-forest">Craft over speed</dt>
-                <dd class="col-start-2 text-copy md:col-start-3">We'd rather take an extra day than leave a joint that isn't quite right. The details you notice every day are the ones worth getting right.</dd>
-            </div>
-            <div class="grid grid-cols-[3rem_minmax(0,1fr)] gap-x-6 gap-y-2 border-b border-charcoal/18 py-8 md:grid-cols-[4rem_minmax(0,1fr)_minmax(0,1.2fr)]">
-                <span aria-hidden="true" class="font-serif text-lg text-terracotta-deep">03</span>
-                <dt class="font-serif text-[clamp(1.5rem,2.4vw,2rem)] leading-tight text-forest">Respect for your home</dt>
-                <dd class="col-start-2 text-copy md:col-start-3">Dust sheets down, floors protected, a tidy site at the end of every day. You still have to live there while we work.</dd>
-            </div>
-        </dl>
-    </div>
+  <div class="container-site py-section-md">
+    {% include "components/section_heading.html" with eyebrow="What we value" title="Three things we won't compromise on" %}
+    <dl class="border-t border-charcoal/18">
+      <div class="grid grid-cols-[3rem_minmax(0,1fr)] gap-x-6 gap-y-2 border-b border-charcoal/18 py-8 md:grid-cols-[4rem_minmax(0,1fr)_minmax(0,1.2fr)]" data-reveal>
+        <span aria-hidden="true" class="font-serif text-lg text-terracotta-deep">01</span>
+        <dt class="font-serif text-[clamp(1.5rem,2.4vw,2rem)] leading-tight text-forest">Honest from the start</dt>
+        <dd class="col-start-2 text-copy md:col-start-3">Itemised quotes, a written programme and no surprises on the final bill. If something changes on site, you'll hear about it before we act on it.</dd>
+      </div>
+      <div class="grid grid-cols-[3rem_minmax(0,1fr)] gap-x-6 gap-y-2 border-b border-charcoal/18 py-8 md:grid-cols-[4rem_minmax(0,1fr)_minmax(0,1.2fr)]" data-reveal>
+        <span aria-hidden="true" class="font-serif text-lg text-terracotta-deep">02</span>
+        <dt class="font-serif text-[clamp(1.5rem,2.4vw,2rem)] leading-tight text-forest">Craft over speed</dt>
+        <dd class="col-start-2 text-copy md:col-start-3">We'd rather take an extra day than leave a joint that isn't quite right. The details you notice every day are the ones worth getting right.</dd>
+      </div>
+      <div class="grid grid-cols-[3rem_minmax(0,1fr)] gap-x-6 gap-y-2 border-b border-charcoal/18 py-8 md:grid-cols-[4rem_minmax(0,1fr)_minmax(0,1.2fr)]" data-reveal>
+        <span aria-hidden="true" class="font-serif text-lg text-terracotta-deep">03</span>
+        <dt class="font-serif text-[clamp(1.5rem,2.4vw,2rem)] leading-tight text-forest">Respect for your home</dt>
+        <dd class="col-start-2 text-copy md:col-start-3">Dust sheets down, floors protected, a tidy site at the end of every day. You still have to live there while we work.</dd>
+      </div>
+    </dl>
+  </div>
 </section>
 
 {# ---------- Craftsmanship ---------- #}
 <section class="bg-forest text-offwhite">
-    <div class="container-site py-section-md">
-        <p class="mb-4 text-eyebrow font-medium uppercase text-[#E3B699]">Our approach to quality</p>
-        <h2 class="mb-16 max-w-175 font-serif text-h2 font-light">How we make sure the work lasts.</h2>
-        <ul class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-            <li class="border-t border-offwhite/25 pt-7">
-                <h3 class="mb-2.5 font-serif text-2xl">The right trade</h3>
-                <p class="text-[15px] text-offwhite/80">Each part of the job is done by someone who specialises in it, not whoever happens to be free.</p>
-            </li>
-            <li class="border-t border-offwhite/25 pt-7">
-                <h3 class="mb-2.5 font-serif text-2xl">Checked as we go</h3>
-                <p class="text-[15px] text-offwhite/80">Your project lead inspects each stage before the next begins, so problems are caught while they're easy to fix.</p>
-            </li>
-            <li class="border-t border-offwhite/25 pt-7">
-                <h3 class="mb-2.5 font-serif text-2xl">Snagged before we leave</h3>
-                <p class="text-[15px] text-offwhite/80">We walk the finished work with you and fix every small issue before calling the job done.</p>
-            </li>
-            <li class="border-t border-offwhite/25 pt-7">
-                <h3 class="mb-2.5 font-serif text-2xl">A written record</h3>
-                <p class="text-[15px] text-offwhite/80">You get a handover pack listing materials, finishes and suppliers, for any future repairs.</p>
-            </li>
-        </ul>
-    </div>
+  <div class="container-site py-section-md">
+    <p class="mb-4 text-eyebrow font-medium uppercase text-[#E3B699]">Our approach to quality</p>
+    <h2 class="mb-16 max-w-175 font-serif text-h2 font-light" data-reveal>How we make sure the work lasts.</h2>
+    <ul class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      <li class="border-t border-offwhite/25 pt-7" data-reveal>
+        <h3 class="mb-2.5 font-serif text-2xl">The right trade</h3>
+        <p class="text-[15px] text-offwhite/80">Each part of the job is done by someone who specialises in it, not whoever happens to be free.</p>
+      </li>
+      <li class="border-t border-offwhite/25 pt-7" data-reveal style="--reveal-delay: 1">
+        <h3 class="mb-2.5 font-serif text-2xl">Checked as we go</h3>
+        <p class="text-[15px] text-offwhite/80">Your project lead inspects each stage before the next begins, so problems are caught while they're easy to fix.</p>
+      </li>
+      <li class="border-t border-offwhite/25 pt-7" data-reveal style="--reveal-delay: 2">
+        <h3 class="mb-2.5 font-serif text-2xl">Snagged before we leave</h3>
+        <p class="text-[15px] text-offwhite/80">We walk the finished work with you and fix every small issue before calling the job done.</p>
+      </li>
+      <li class="border-t border-offwhite/25 pt-7" data-reveal style="--reveal-delay: 3">
+        <h3 class="mb-2.5 font-serif text-2xl">A written record</h3>
+        <p class="text-[15px] text-offwhite/80">You get a handover pack listing materials, finishes and suppliers, for any future repairs.</p>
+      </li>
+    </ul>
+  </div>
 </section>
 
 {# ---------- Team ---------- #}
 <section class="container-site py-section-lg">
-    {% include "components/section_heading.html" with eyebrow="The team" title="Who you'll be working with" %}
-    <ul class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-        {% for name, initials, role, bio in team %}
-            <li class="border-t border-charcoal/18 pt-7">
-                <span aria-hidden="true" class="mb-6 flex size-16 items-center justify-center rounded-full bg-ivory font-serif text-xl text-forest">{{ initials }}</span>
-                <h3 class="font-serif text-2xl text-forest">{{ name }}</h3>
-                <p class="mb-3 text-eyebrow uppercase text-terracotta-deep">{{ role }}</p>
-                <p class="text-[15px] text-muted">{{ bio }}</p>
-            </li>
-        {% endfor %}
-    </ul>
-    <p class="mt-10 text-[13px] text-muted">Team members are fictional, created for this portfolio demo.</p>
+  {% include "components/section_heading.html" with eyebrow="The team" title="Who you'll be working with" %}
+  <ul class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+    {% for name, initials, role, bio in team %}
+      <li class="border-t border-charcoal/18 pt-7" data-reveal style="--reveal-delay: {{ forloop.counter0 }}">
+        <span aria-hidden="true" class="mb-6 flex size-16 items-center justify-center rounded-full bg-ivory font-serif text-xl text-forest">{{ initials }}</span>
+        <h3 class="font-serif text-2xl text-forest">{{ name }}</h3>
+        <p class="mb-3 text-eyebrow uppercase text-terracotta-deep">{{ role }}</p>
+        <p class="text-[15px] text-muted">{{ bio }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+  <p class="mt-10 text-[13px] text-muted">Team members are fictional, created for this portfolio demo.</p>
 </section>
 
 {# ---------- CTA ---------- #}
 <section class="bg-ivory">
-    <div class="container-site flex flex-wrap items-center justify-between gap-10 py-section-md">
-        <div class="max-w-160">
-            <h2 class="mb-4 font-serif text-[clamp(2.25rem,4vw,3.75rem)] leading-[1.05] font-light tracking-[-.02em] text-forest">Let's talk about your home</h2>.
-            <p class="text-copy">Tell us what you're planning and we'll take it from there.</p>
-        </div>
-        <a href="#" class="btn-primary px-9 text-[17px]">Request a quote</a>
+  <div class="container-site flex flex-wrap items-center justify-between gap-10 py-section-md">
+    <div class="max-w-160" data-reveal>
+      <h2 class="mb-4 font-serif text-[clamp(2.25rem,4vw,3.75rem)] leading-[1.05] font-light tracking-[-.02em] text-forest">Let's talk about your home.</h2>
+      <p class="text-copy">Tell us what you're planning and we'll take it from there.</p>
     </div>
+    <a href="#" class="btn-primary px-9 text-[17px]">Request a quote</a>
+  </div>
 </section>
 
 {% endblock %}

@@ -2,7 +2,7 @@
   Usage:
   {% include "components/section_heading.html" with eyebrow="Selected work" title="Recent projects" link_url="#" link_text="View all projects" %}
 {% endcomment %}
-<div class="mb-14 flex flex-wrap items-end justify-between gap-6">
+<div class="mb-14 flex flex-wrap items-end justify-between gap-6" data-reveal>
   <div>
     {% if eyebrow %}<p class="eyebrow mb-4">{{ eyebrow }}</p>{% endif %}
     <h2 class="font-serif text-h2 font-light text-forest">{{ title }}</h2>

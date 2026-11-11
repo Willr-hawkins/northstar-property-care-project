@@ -47,6 +47,11 @@
 
   /* Layout */
   --container-site: 77.5rem;    /* 1240px -> max-w-site */
+
+  /* Motion */
+  --ease-gentle: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --default-transition-duration: 300ms;
+  --default-transition-timing-function: var(--ease-gentle);
 }
 
 @layer base {
@@ -125,5 +130,57 @@
   .before-after:focus-within .before-after__handle {
     outline: 2px solid var(--color-terracotta);
     outline-offset: 3px;
+  }
+}
+
+
+/* ------------ Motion ------------- */
+
+/* Scroll reveal: only hidden once JS is confirmed running (html.js). */
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition: opacity 900ms var(--ease-gentle), transform 900ms var(--ease-gentle);
+  transition-delay: calc(var(--reveal-delay, 0) * 90ms);
+}
+html.js [data-reveal].is-revealed,
+html.reveal-fallback [data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+
+
+/* Homepage here load-in: CSS only, so it works without JS. */
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+[data-hero] {
+  animation: hero-in 1100ms var(--ease-gentle) both;
+  animation-delay: calc(var(--hero-delay, 0) * 120ms);
+}
+
+/* Respect "reduce motion": show everything immediately, no movement. */
+@media(prefers-reduced-mation: reduce) {
+  html.js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  [data-hero] {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

@@ -112,3 +112,11 @@ def test_privacy_page_lists_what_the_form_collects(client):
 def test_footer_links_to_privacy_notice(client):
     content = client.get(reverse("core:home")).content.decode()
     assert f'href="{reverse("core:privacy")}"' in content
+
+
+def test_base_template_loads_motion_with_no_js_safety_net(client):
+    content = client.get(reverse("core:home")).content.decode()
+    assert 'classList.add("js")' in content
+    assert "reveal-fallback" in content
+    assert "js/reveal.js" in content
+    assert "data-reveal" in content and "data-hero" in content

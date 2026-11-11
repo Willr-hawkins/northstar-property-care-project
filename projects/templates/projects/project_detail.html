@@ -13,20 +13,22 @@
       <li aria-current="page" class="text-charcoal">{{ project.title }}</li>
     </ol>
   </nav>
-  <p class="eyebrow mb-6">{{ project.get_category_display }}{% if project.location %} · {{ project.location }}{% endif %}</p>
-  <h1 class="mb-14 font-serif text-[clamp(2.75rem,6vw,5.5rem)] leading-[1.02] font-light tracking-[-.02em] text-forest">{{ project.title }}</h1>
+  <div data-reveal>
+    <p class="eyebrow mb-6">{{ project.get_category_display }}{% if project.location %} · {{ project.location }}{% endif %}</p>
+    <h1 class="mb-14 font-serif text-[clamp(2.75rem,6vw,5.5rem)] leading-[1.02] font-light tracking-[-.02em] text-forest">{{ project.title }}</h1>
+  </div>
   {% if project.featured_image %}
     <img src="{{ project.featured_image.url }}" alt="{{ project.featured_image_alt }}" fetchpriority="high" class="h-[clamp(320px,50vw,700px)] w-full object-cover">
   {% endif %}
 </section>
 
 <section class="container-site py-section-md">
-  <div class="flex flex-wrap items-start gap-20">
+  <div class="flex flex-wrap items-start gap-20" data-reveal>
     <dl class="flex-[1_1_16rem] border-t border-charcoal/18">
       {% if project.service %}
         <div class="border-b border-charcoal/18 py-4.5">
           <dt class="text-eyebrow uppercase text-muted">Service</dt>
-          <dd class="mt-1"><a href="{{ project.service.get_absolute_url }}" class="font-serif text-[21px] text-forest no-underline border-b border-terracotta hover:text-terracotta-deep">{{ project.service.title }}</a></dd>
+          <dd class="mt-1"><a href="{{ project.service.get_absolute_url }}" class="border-b border-terracotta font-serif text-[21px] text-forest no-underline hover:text-terracotta-deep">{{ project.service.title }}</a></dd>
         </div>
       {% endif %}
       {% if project.location %}
@@ -51,14 +53,14 @@
 {% if before_image and after_image %}
 <section class="bg-ivory">
   <div class="container-site py-section-md">
-    <div class="mb-10 flex flex-wrap items-end justify-between gap-6">
+    <div class="mb-10 flex flex-wrap items-end justify-between gap-6" data-reveal>
       <div>
         <p class="eyebrow mb-4">The transformation</p>
         <h2 class="font-serif text-h2 font-light text-forest">Before &amp; after</h2>
       </div>
       <p class="text-[15px] text-muted">Drag the handle, or use the arrow keys</p>
     </div>
-    <figure>
+    <figure data-reveal>
       <div class="before-after relative h-[clamp(300px,46vw,620px)] overflow-hidden select-none" style="--position: 50%" data-before-after>
         <img src="{{ after_image.image.url }}" alt="After: {{ after_image.alt_text }}" loading="lazy" class="absolute inset-0 size-full object-cover">
         <img src="{{ before_image.image.url }}" alt="Before: {{ before_image.alt_text }}" loading="lazy" class="before-after__before absolute inset-0 size-full object-cover">
@@ -81,7 +83,7 @@
   <p class="eyebrow mb-8">Gallery</p>
   <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
     {% for image in gallery_images %}
-      <figure>
+      <figure data-reveal style="--reveal-delay: {{ forloop.counter0 }}">
         <img src="{{ image.image.url }}" alt="{{ image.alt_text }}" loading="lazy" class="aspect-4/5 w-full object-cover">
         {% if image.caption %}<figcaption class="mt-3 text-[15px] text-muted">{{ image.caption }}</figcaption>{% endif %}
       </figure>
@@ -104,7 +106,7 @@
 
 <section class="bg-forest text-offwhite">
   <div class="container-site flex flex-wrap items-center justify-between gap-10 py-section-md">
-    <h2 class="max-w-155 font-serif text-[clamp(2rem,3.6vw,3.25rem)] leading-[1.1] font-light">Planning something similar?</h2>
+    <h2 class="max-w-155 font-serif text-[clamp(2rem,3.6vw,3.25rem)] leading-[1.1] font-light" data-reveal>Planning something similar?</h2>
     <a href="#" class="inline-flex min-h-11 items-center rounded-xs bg-offwhite px-9 py-4 text-[17px] font-medium text-forest no-underline transition-colors duration-300 hover:bg-ivory">Request a quote</a>
   </div>
 </section>
