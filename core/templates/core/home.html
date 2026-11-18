@@ -15,7 +15,7 @@
     <div class="lg:pb-2.5" data-hero style="--hero-delay: 2">
       <p class="mb-8 max-w-115 text-lead text-copy">We plan and build considered renovations, extensions and kitchens — then look after the house long after the dust settles.</p>
       <div class="flex flex-wrap items-center gap-7">
-        <a href="#" class="btn-primary">Request a quote</a>
+        <a href="{% url 'enquiries:quote' %}" class="btn-primary">Request a quote</a>
         <a href="{% url 'projects:list' %}" class="link-underline">View our work</a>
       </div>
     </div>
@@ -138,7 +138,7 @@
       <h2 class="mb-4 font-serif text-[clamp(2.25rem,4vw,3.75rem)] leading-[1.05] font-light tracking-[-.02em] text-forest">Tell us about your home.</h2>
       <p class="text-copy">A short form, a reply within two working days, and no obligation.</p>
     </div>
-    <a href="#" class="btn-primary px-9 text-[17px]">Request a quote</a>
+    <a href="{% url 'enquiries:quote' %}" class="btn-primary px-9 text-[17px]">Request a quote</a>
   </div>
 </section>
 

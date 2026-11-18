@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}{% if form.errors %}Error: {% endif %}Request a quote — Northstar Property Care{% endblock %}
+{% block meta_description %}Tell us about your renovation, extension or repair and we'll reply within two working days. Northstar Property Care is a fictional company created as a portfolio demo.{% endblock %}
+
+{% block content %}
+<section class="container-site pt-24 pb-section-lg">
+  <div class="flex flex-wrap items-start gap-x-24 gap-y-16">
+
+    {# ---------- Intro ---------- #}
+    <div class="min-w-0 flex-[1_1_20rem]" data-reveal>
+      <p class="eyebrow mb-6">Request a quote</p>
+      <h1 class="mb-7 font-serif text-[clamp(2.625rem,4.8vw,4.25rem)] leading-[1.05] font-light tracking-[-.02em] text-forest">Tell us about your home.</h1>
+      <p class="mb-14 text-lead text-copy">A few details are all we need to get started. There's no obligation, and we'll reply within two working days.</p>
+      <h2 class="mb-5 text-eyebrow font-semibold uppercase text-muted">What happens next</h2>
+      <ol class="border-t border-charcoal/18">
+        <li class="flex gap-5 border-b border-charcoal/18 py-4.5"><span aria-hidden="true" class="font-serif text-xl text-terracotta-deep">01</span><span><strong class="font-semibold text-forest">We reply</strong><br><span class="text-[15px] text-muted">A project lead gets in touch the way you prefer.</span></span></li>
+        <li class="flex gap-5 border-b border-charcoal/18 py-4.5"><span aria-hidden="true" class="font-serif text-xl text-terracotta-deep">02</span><span><strong class="font-semibold text-forest">We visit</strong><br><span class="text-[15px] text-muted">We see the space, listen and measure up.</span></span></li>
+        <li class="flex gap-5 border-b border-charcoal/18 py-4.5"><span aria-hidden="true" class="font-serif text-xl text-terracotta-deep">03</span><span><strong class="font-semibold text-forest">You get a quote</strong><br><span class="text-[15px] text-muted">Itemised, with a programme and no hidden extras.</span></span></li>
+      </ol>
+    </div>
+
+    {# ---------- Form ---------- #}
+    <div class="max-w-170 min-w-0 flex-[999_1_35rem]">
+      <form method="post" novalidate class="flex flex-col gap-7 border border-charcoal/12 bg-white p-[clamp(1.75rem,4vw,3.5rem)]">
+        {% csrf_token %}
+
+        {% if form.errors %}
+          <div id="error-summary" tabindex="-1" role="alert" aria-labelledby="error-summary-title" class="border border-terracotta-deep bg-[#F6EDE7] px-6 py-5 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta">
+            <h2 id="error-summary-title" class="mb-2 font-semibold text-charcoal">There's a problem with {{ form.errors|length }} field{{ form.errors|length|pluralize }}</h2>
+            <ul class="list-disc pl-5 text-[15px]">
+              {% for field in form %}{% for error in field.errors %}
+                <li><a href="#{{ field.id_for_label }}" class="text-terracotta-deep underline">{{ error }}</a></li>
+              {% endfor %}{% endfor %}
+              {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+
+        <div class="grid gap-7 sm:grid-cols-2">
+          {% include "components/form_field.html" with field=form.name %}
+          {% include "components/form_field.html" with field=form.phone %}
+        </div>
+
+        {% include "components/form_field.html" with field=form.email %}
+
+        <div class="grid gap-7 sm:grid-cols-2">
+          {% include "components/form_field.html" with field=form.service %}
+          {% include "components/form_field.html" with field=form.postcode %}
+        </div>
+
+        {% include "components/form_field.html" with field=form.project_description %}
+
+        <fieldset {% if form.preferred_contact_method.errors %}aria-describedby="id_preferred_contact_method_error"{% endif %}>
+          <legend class="mb-3 text-[15px] font-semibold text-charcoal">{{ form.preferred_contact_method.label }} <span class="font-normal text-muted">(optional)</span></legend>
+          {% if form.preferred_contact_method.errors %}<p id="id_preferred_contact_method_error" class="mb-3 text-[15px] font-medium text-terracotta-deep">{{ form.preferred_contact_method.errors.0 }}</p>{% endif %}
+          <div class="flex flex-wrap gap-3">
+            {% for radio in form.preferred_contact_method %}
+              <label for="{{ radio.id_for_label }}" class="inline-flex min-h-12 cursor-pointer items-center gap-2.5 rounded-xs border border-charcoal/25 px-4.5 has-checked:border-forest has-checked:bg-ivory">{{ radio.tag }} {{ radio.choice_label }}</label>
+            {% endfor %}
+          </div>
+        </fieldset>
+
+        <div class="flex flex-wrap items-center justify-between gap-5 border-t border-charcoal/12 pt-6">
+          <p class="max-w-80 text-sm text-muted">We only use your details to reply to this enquiry. <a href="{% url 'core:privacy' %}" class="text-terracotta-deep underline">Privacy notice</a></p>
+          <button type="submit" class="btn-primary min-h-13 cursor-pointer border-0 px-8.5 text-[17px]">Send enquiry</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+{% if form.errors %}
+<script>
+  // Move focus to the error summary so keyboard and screen-reader users hear the problems first.
+  document.getElementById("error-summary").focus();
+</script>
+{% endif %}
+{% endblock %}

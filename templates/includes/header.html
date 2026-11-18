@@ -1,4 +1,4 @@
-{% with url_name=request.resolver_match.url_name %}
+{% with url_name=request.resolver_match.url_name app_name=request.resolver_match.app_name %}
 <header class="border-b border-charcoal/12">
   <div class="container-site flex items-center justify-between gap-5 py-5">
 
@@ -11,13 +11,12 @@
       <span class="hidden pt-0.75 text-[11px] uppercase tracking-[.18em] text-muted sm:inline">Property Care</span>
     </a>
 
-    {# Desktop navigation — links become {% url %} tags as each page is built in Sprint 2 #}
+    {# Desktop navigation #}
     <nav aria-label="Main" class="hidden items-center gap-8 text-[15px] md:flex">
-      <a href="{% url 'services:list' %}" class="text-charcoal no-underline hover:text-terracotta-deep">Services</a>
-      <a href="{% url 'projects:list' %}" class="text-charcoal no-underline hover:text-terracotta-deep">Projects</a>
-      <a href="{% url 'core:about' %}" class="text-charcoal no-underline hover:text-terracotta-deep">About</a>
-      <a href="#" class="text-charcoal no-underline hover:text-terracotta-deep">Contact</a>
-      <a href="#" class="btn-primary px-5 py-3">Request a quote</a>
+      <a href="{% url 'services:list' %}" class="text-charcoal no-underline hover:text-terracotta-deep" {% if app_name == 'services' %}aria-current="page"{% endif %}>Services</a>
+      <a href="{% url 'projects:list' %}" class="text-charcoal no-underline hover:text-terracotta-deep" {% if app_name == 'projects' %}aria-current="page"{% endif %}>Projects</a>
+      <a href="{% url 'core:about' %}" class="text-charcoal no-underline hover:text-terracotta-deep" {% if url_name == 'about' %}aria-current="page"{% endif %}>About</a>
+      <a href="{% url 'enquiries:quote' %}" class="btn-primary px-5 py-3" {% if app_name == 'enquiries' %}aria-current="page"{% endif %}>Request a quote</a>
     </nav>
 
     {# Mobile menu toggle #}
@@ -35,11 +34,10 @@
   {# Mobile navigation #}
   <nav id="mobile-nav" aria-label="Main" class="border-t border-charcoal/12 md:hidden" hidden>
     <ul class="container-site flex flex-col py-4">
-      <li><a href="{% url 'services:list' %}" class="block py-3 font-serif text-2xl text-forest no-underline">Services</a></li>
-      <li><a href="{% url 'projects:list' %}" class="block py-3 font-serif text-2xl text-forest no-underline">Projects</a></li>
-      <li><a href="{% url 'core:about' %}" class="block py-3 font-serif text-2xl text-forest no-underline">About</a></li>
-      <li><a href="#" class="block py-3 font-serif text-2xl text-forest no-underline">Contact</a></li>
-      <li class="pt-4"><a href="#" class="btn-primary w-full">Request a quote</a></li>
+      <li><a href="{% url 'services:list' %}" class="block py-3 font-serif text-2xl text-forest no-underline" {% if app_name == 'services' %}aria-current="page"{% endif %}>Services</a></li>
+      <li><a href="{% url 'projects:list' %}" class="block py-3 font-serif text-2xl text-forest no-underline" {% if app_name == 'projects' %}aria-current="page"{% endif %}>Projects</a></li>
+      <li><a href="{% url 'core:about' %}" class="block py-3 font-serif text-2xl text-forest no-underline" {% if url_name == 'about' %}aria-current="page"{% endif %}>About</a></li>
+      <li class="pt-4"><a href="{% url 'enquiries:quote' %}" class="btn-primary w-full">Request a quote</a></li>
     </ul>
   </nav>
 </header>

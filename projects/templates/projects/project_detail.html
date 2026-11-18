@@ -107,7 +107,7 @@
 <section class="bg-forest text-offwhite">
   <div class="container-site flex flex-wrap items-center justify-between gap-10 py-section-md">
     <h2 class="max-w-155 font-serif text-[clamp(2rem,3.6vw,3.25rem)] leading-[1.1] font-light" data-reveal>Planning something similar?</h2>
-    <a href="#" class="inline-flex min-h-11 items-center rounded-xs bg-offwhite px-9 py-4 text-[17px] font-medium text-forest no-underline transition-colors duration-300 hover:bg-ivory">Request a quote</a>
+    <a href="{% url 'enquiries:quote' %}{% if project.service %}?service={{ project.service.slug }}{% endif %}" class="inline-flex min-h-11 items-center rounded-xs bg-offwhite px-9 py-4 text-[17px] font-medium text-forest no-underline transition-colors duration-300 hover:bg-ivory">Request a quote</a>
   </div>
 </section>
 
