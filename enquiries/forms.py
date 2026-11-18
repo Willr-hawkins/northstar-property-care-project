@@ -1,7 +1,9 @@
 import re
+
 from django import forms
 
 from services.models import Service
+
 from .models import Enquiry
 
 UK_POSTCODE = re.compile(r"^[A-Z]{1,2}\d[A-Z\d]?\d[A-Z]{2}$")
@@ -25,6 +27,12 @@ class QuoteForm(forms.ModelForm):
         widget=forms.RadioSelect,
         required=False,
         initial=Enquiry.ContactMethod.EMAIL,
+    )
+    # Honeypot: hidden from people, but bots fill in every field they find.
+    website = forms.CharField(
+        required=False,
+        label="Leave this field empty",
+        widget=forms.TextInput(attrs={"tabindex": "-1", "autocomplete": "off"}),
     )
 
     class Meta:
@@ -61,14 +69,14 @@ class QuoteForm(forms.ModelForm):
         autocomplete = {"name": "name", "email": "email", "phone": "tel", "postcode": "postal-code"}
 
         for name, field in self.fields.items():
-            if name == "preffered_contact_method":
+            if name in ("preferred_contact_method", "website"):
                 continue
             field.widget.attrs["class"] = INPUT_CLASSES
             if name in autocomplete:
                 field.widget.attrs["autocomplete"] = autocomplete[name]
             if field.help_text:
                 field.widget.attrs["aria-describedby"] = f"id_{name}_helptext"
-            
+
         self.fields["postcode"].widget.attrs["class"] += " uppercase"
         self.fields["project_description"].widget.attrs["class"] += " py-3 leading-relaxed"
 
@@ -85,6 +93,9 @@ class QuoteForm(forms.ModelForm):
                 described_by.append(f"id_{name}_helptext")
             attrs["aria-describedby"] = " ".join(described_by)
 
+    def is_spam(self):
+        """True if the hidden honeypot field was filled in, which only bots do."""
+        return bool(self.cleaned_data.get("website"))
 
     # --- Field validation -------------------------------------------------
 

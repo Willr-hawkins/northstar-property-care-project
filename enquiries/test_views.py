@@ -1,5 +1,8 @@
 import pytest
 from django.urls import reverse
+from django.utils import timezone
+
+from datetime import timedelta
 
 from enquiries.models import Enquiry
 from services.models import Service
@@ -81,3 +84,38 @@ def test_thanks_page_only_shows_once(client):
 def test_every_quote_button_on_the_homepage_links_to_the_form(client):
     content = client.get(reverse("core:home")).content.decode()
     assert content.count(f'href="{QUOTE_URL}"') >= 3  # header (desktop + mobile), hero, CTA band
+
+
+def test_honeypot_submission_is_discarded_but_looks_successful(client):
+    response = client.post(QUOTE_URL, valid_post(website="http://spam.example"))
+    assert response.status_code == 302
+    assert response.url == reverse("enquiries:quote_success")
+    assert Enquiry.objects.count() == 0
+
+
+def test_identical_resubmission_within_window_is_saved_once(client):
+    client.post(QUOTE_URL, valid_post())
+    response = client.post(QUOTE_URL, valid_post())
+    assert response.status_code == 302
+    assert Enquiry.objects.count() == 1
+
+
+def test_different_project_from_same_person_is_saved(client):
+    client.post(QUOTE_URL, valid_post())
+    client.post(QUOTE_URL, valid_post(project_description="We'd also like a quote for a loft conversion."))
+    assert Enquiry.objects.count() == 2
+
+
+def test_identical_submission_after_window_is_saved(client):
+    client.post(QUOTE_URL, valid_post())
+    Enquiry.objects.update(created_at=timezone.now() - timedelta(minutes=30))
+    client.post(QUOTE_URL, valid_post())
+    assert Enquiry.objects.count() == 2
+
+
+def test_form_has_submit_once_and_hidden_honeypot(client):
+    content = client.get(QUOTE_URL).content.decode()
+    assert "data-submit-once" in content
+    assert "js/forms.js" in content
+    assert 'name="website"' in content
+    assert 'tabindex="-1"' in content

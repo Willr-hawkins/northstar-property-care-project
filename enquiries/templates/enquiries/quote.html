@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}{% if form.errors %}Error: {% endif %}Request a quote — Northstar Property Care{% endblock %}
 {% block meta_description %}Tell us about your renovation, extension or repair and we'll reply within two working days. Northstar Property Care is a fictional company created as a portfolio demo.{% endblock %}
@@ -22,7 +23,7 @@
 
     {# ---------- Form ---------- #}
     <div class="max-w-170 min-w-0 flex-[999_1_35rem]">
-      <form method="post" novalidate class="flex flex-col gap-7 border border-charcoal/12 bg-white p-[clamp(1.75rem,4vw,3.5rem)]">
+      <form method="post" novalidate data-submit-once class="relative flex flex-col gap-7 border border-charcoal/12 bg-white p-[clamp(1.75rem,4vw,3.5rem)]">
         {% csrf_token %}
 
         {% if form.errors %}
@@ -36,6 +37,12 @@
             </ul>
           </div>
         {% endif %}
+
+        {# Honeypot: moved off-screen (not display:none, which some bots skip) and hidden from assistive tech. #}
+        <div aria-hidden="true" class="absolute left-[-10000px] top-auto size-px overflow-hidden">
+          <label for="{{ form.website.id_for_label }}">{{ form.website.label }}</label>
+          {{ form.website }}
+        </div>
 
         <div class="grid gap-7 sm:grid-cols-2">
           {% include "components/form_field.html" with field=form.name %}
@@ -63,7 +70,7 @@
 
         <div class="flex flex-wrap items-center justify-between gap-5 border-t border-charcoal/12 pt-6">
           <p class="max-w-80 text-sm text-muted">We only use your details to reply to this enquiry. <a href="{% url 'core:privacy' %}" class="text-terracotta-deep underline">Privacy notice</a></p>
-          <button type="submit" class="btn-primary min-h-13 cursor-pointer border-0 px-8.5 text-[17px]">Send enquiry</button>
+          <button type="submit" data-sending-label="Sending…" class="btn-primary min-h-13 cursor-pointer border-0 px-8.5 text-[17px] disabled:cursor-wait disabled:opacity-60">Send enquiry</button>
         </div>
       </form>
     </div>
@@ -73,6 +80,7 @@
 {% endblock %}
 
 {% block extra_js %}
+<script src="{% static 'js/forms.js' %}" defer></script>
 {% if form.errors %}
 <script>
   // Move focus to the error summary so keyboard and screen-reader users hear the problems first.

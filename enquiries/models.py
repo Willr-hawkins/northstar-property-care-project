@@ -1,5 +1,8 @@
 from django.conf import settings
 from django.db import models, transaction
+from django.utils import timezone
+
+from datetime import timedelta
 
 from core.models import TimeStampModel
 
@@ -14,6 +17,22 @@ def staff_display_name(user):
     if user is None or not user.is_active:
         return FORMER_STAFF_LABEL
     return user.get_full_name() or user.get_username()
+
+
+DUPLICATE_WINDOW = timedelta(minutes=10)
+
+class EnquiryQuerySet(models.QuerySet):
+    def recent_duplicate_of(self, email, project_description, window=DUPLICATE_WINDOW):
+        """ An indentical enquiry from the same email within the window, or None. """
+        return (
+            self.filter(
+                email__iexact=email,
+                project_description=project_description,
+                created_at__gte=timezone.now() - window,
+            )
+            .order_by("-created_at")
+            .first()
+        )
 
 class Enquiry(TimeStampModel):
     class Status(models.TextChoices):
@@ -43,6 +62,7 @@ class Enquiry(TimeStampModel):
         max_length=10, choices=ContactMethod.choices, blank=True
     )
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.NEW)
+    objects = EnquiryQuerySet.as_manager()
 
     class Meta:
         ordering = ["-created_at"]

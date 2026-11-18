@@ -70,3 +70,15 @@ def test_invalid_fields_are_linked_to_their_errors():
     attrs = form.fields["postcode"].widget.attrs
     assert attrs["aria-invalid"] == "true"
     assert attrs["aria-describedby"] == "id_postcode_error"
+
+
+def test_honeypot_marks_submission_as_spam():
+    form = QuoteForm(data=valid_data(website="http://spam.example"))
+    assert form.is_valid()
+    assert form.is_spam()
+
+
+def test_honeypot_empty_is_not_spam():
+    form = QuoteForm(data=valid_data())
+    assert form.is_valid()
+    assert not form.is_spam()

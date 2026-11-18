@@ -1,6 +1,9 @@
 import pytest
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError, transaction
+from django.utils import timezone
+
+from datetime import timedelta
 
 from enquiries.models import Enquiry, EnquiryNote, EnquiryStatusChange
 from services.models import Service
@@ -133,3 +136,18 @@ def test_deleting_enquiry_removes_notes_and_history(staff_user):
     enquiry.delete()
     assert EnquiryNote.objects.count() == 0
     assert EnquiryStatusChange.objects.count() == 0
+
+
+def test_recent_duplicate_found_within_window():
+    original = make_enquiry(email="sam@example.com", project_description="Kitchen extension.")
+    found = Enquiry.objects.recent_duplicate_of("SAM@example.com", "Kitchen extension.")
+    assert found == original
+
+
+def test_old_or_different_enquiries_are_not_duplicates():
+    old = make_enquiry(email="sam@example.com", project_description="Kitchen extension.")
+    Enquiry.objects.filter(pk=old.pk).update(created_at=timezone.now() - timedelta(minutes=30))
+    assert Enquiry.objects.recent_duplicate_of("sam@example.com", "Kitchen extension.") is None
+
+    make_enquiry(email="sam@example.com", project_description="Bathroom refit please.")
+    assert Enquiry.objects.recent_duplicate_of("sam@example.com", "Kitchen extension.") is None
