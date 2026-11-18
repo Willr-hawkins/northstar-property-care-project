@@ -1,12 +1,14 @@
+from datetime import timedelta
+
 from django.conf import settings
 from django.db import models, transaction
 from django.utils import timezone
 
-from datetime import timedelta
-
 from core.models import TimeStampModel
 
 FORMER_STAFF_LABEL = "Former staff member"
+DUPLICATE_WINDOW = timedelta(minutes=10)
+
 
 def staff_display_name(user):
     """
@@ -19,11 +21,9 @@ def staff_display_name(user):
     return user.get_full_name() or user.get_username()
 
 
-DUPLICATE_WINDOW = timedelta(minutes=10)
-
 class EnquiryQuerySet(models.QuerySet):
     def recent_duplicate_of(self, email, project_description, window=DUPLICATE_WINDOW):
-        """ An indentical enquiry from the same email within the window, or None. """
+        """An identical enquiry from the same email within the window, or None."""
         return (
             self.filter(
                 email__iexact=email,
@@ -33,6 +33,7 @@ class EnquiryQuerySet(models.QuerySet):
             .order_by("-created_at")
             .first()
         )
+
 
 class Enquiry(TimeStampModel):
     class Status(models.TextChoices):
@@ -45,6 +46,11 @@ class Enquiry(TimeStampModel):
     class ContactMethod(models.TextChoices):
         EMAIL = "email", "Email"
         PHONE = "phone", "Phone"
+
+    class NotificationStatus(models.TextChoices):
+        PENDING = "pending", "Pending"
+        SENT = "sent", "Sent"
+        FAILED = "failed", "Failed"
 
     name = models.CharField(max_length=120)
     email = models.EmailField()
@@ -62,6 +68,13 @@ class Enquiry(TimeStampModel):
         max_length=10, choices=ContactMethod.choices, blank=True
     )
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.NEW)
+    notification_status = models.CharField(
+        max_length=10,
+        choices=NotificationStatus.choices,
+        default=NotificationStatus.PENDING,
+    )
+    notification_error = models.TextField(blank=True)
+
     objects = EnquiryQuerySet.as_manager()
 
     class Meta:
@@ -79,20 +92,20 @@ class Enquiry(TimeStampModel):
         ]
 
     def __str__(self):
-        return f"{self.name} - {self.get_status_display()}"
-    
+        return f"{self.name} — {self.get_status_display()}"
+
     def change_status(self, new_status, user):
         """
         Move the enquiry to a new status and record the change.
 
         Returns True if the status changed, False if it was already that status.
-        Raised ValueError for a status that isn't one of Enquiry.Status.
+        Raises ValueError for a status that isn't one of Enquiry.Status.
         """
         if new_status not in self.Status.values:
-            raise ValueError(f"Invalid status: {self.status!r}")
+            raise ValueError(f"Invalid status: {new_status!r}")
         if new_status == self.status:
             return False
-        
+
         with transaction.atomic():
             old_status = self.status
             self.status = new_status
@@ -104,7 +117,7 @@ class Enquiry(TimeStampModel):
                 changed_by=user,
             )
         return True
-    
+
 
 class EnquiryNote(TimeStampModel):
     enquiry = models.ForeignKey(Enquiry, on_delete=models.CASCADE, related_name="notes")
@@ -121,18 +134,18 @@ class EnquiryNote(TimeStampModel):
 
     def __str__(self):
         return f"Note on {self.enquiry.name} by {self.author_display_name}"
-        
+
     @property
     def author_display_name(self):
         return staff_display_name(self.author)
-    
+
     @property
     def author_is_former_staff(self):
         return self.author is None or not self.author.is_active
-    
+
 
 class EnquiryStatusChange(models.Model):
-    """ One row per status change - powers the enquiry activity timeline. """
+    """One row per status change — powers the enquiry activity timeline."""
 
     enquiry = models.ForeignKey(Enquiry, on_delete=models.CASCADE, related_name="status_changes")
     from_status = models.CharField(max_length=20, choices=Enquiry.Status.choices)
@@ -147,15 +160,14 @@ class EnquiryStatusChange(models.Model):
 
     class Meta:
         ordering = ["created_at"]
-    
+
     def __str__(self):
         return f"{self.enquiry.name}: {self.from_status} → {self.to_status}"
-    
+
     @property
     def changed_by_display_name(self):
         return staff_display_name(self.changed_by)
-    
+
     @property
     def changed_by_is_former_staff(self):
         return self.changed_by is None or not self.changed_by.is_active
-

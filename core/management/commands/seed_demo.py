@@ -140,7 +140,7 @@ class Command(BaseCommand):
             notes = data.pop("notes", [])
             data["service"] = services.get(data.pop("service"))
 
-            enquiry = Enquiry.objects.create(**data)
+            enquiry = Enquiry.objects.create(**data, notification_status=Enquiry.NotificationStatus.SENT)
 
             for new_status, username, change_days_ago in history:
                 enquiry.change_status(new_status, staff[username])

@@ -1,13 +1,15 @@
 import logging
 
+from django.db import transaction
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
+from django.urls import reverse
 from django.views.generic import CreateView, TemplateView
 
 from services.models import Service
 
 from .forms import QuoteForm
 from .models import Enquiry
+from .notifications import send_enquiry_notification
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +19,6 @@ SUBMITTED_SESSION_KEY = "quote_submitted_name"
 class QuoteView(CreateView):
     form_class = QuoteForm
     template_name = "enquiries/quote.html"
-    success_url = reverse_lazy("enquiries:quote_success")
 
     def get_initial(self):
         initial = super().get_initial()
@@ -40,8 +41,14 @@ class QuoteView(CreateView):
             logger.info("Duplicate quote submission ignored (matches enquiry %s).", duplicate.pk)
             return self.show_thanks(duplicate.name)
 
-        self.object = form.save()
-        return self.show_thanks(self.object.name)
+        enquiry = form.save()
+        self.object = enquiry
+        admin_url = self.request.build_absolute_uri(
+            reverse("admin:enquiries_enquiry_change", args=[enquiry.pk])
+        )
+        # Only email once the enquiry is safely committed to the database.
+        transaction.on_commit(lambda: send_enquiry_notification(enquiry, admin_url))
+        return self.show_thanks(enquiry.name)
 
     def show_thanks(self, name):
         self.request.session[SUBMITTED_SESSION_KEY] = name

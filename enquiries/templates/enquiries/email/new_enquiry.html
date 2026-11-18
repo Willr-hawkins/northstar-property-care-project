@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en-GB">
+<body style="margin:0;padding:0;background:#F8F7F3;font-family:Arial,Helvetica,sans-serif;color:#292B29;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F8F7F3;">
+    <tr><td align="center" style="padding:32px 16px;">
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#FFFFFF;border:1px solid #E2DED5;">
+        <tr><td style="background:#25382F;padding:24px 32px;color:#F8F7F3;font-family:Georgia,serif;font-size:22px;">Northstar · New enquiry</td></tr>
+        <tr><td style="padding:32px;">
+          <p style="margin:0 0 4px;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#8A4F31;">{{ enquiry.service.title|default:"Not sure yet" }}</p>
+          <h1 style="margin:0 0 24px;font-family:Georgia,serif;font-weight:normal;font-size:28px;color:#25382F;">{{ enquiry.name }}</h1>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:15px;line-height:1.5;">
+            <tr><td style="padding:8px 0;border-top:1px solid #E2DED5;color:#5B5E59;width:130px;">Email</td><td style="padding:8px 0;border-top:1px solid #E2DED5;"><a href="mailto:{{ enquiry.email }}" style="color:#8A4F31;">{{ enquiry.email }}</a></td></tr>
+            <tr><td style="padding:8px 0;border-top:1px solid #E2DED5;color:#5B5E59;">Phone</td><td style="padding:8px 0;border-top:1px solid #E2DED5;">{{ enquiry.phone|default:"Not given" }}</td></tr>
+            <tr><td style="padding:8px 0;border-top:1px solid #E2DED5;color:#5B5E59;">Contact by</td><td style="padding:8px 0;border-top:1px solid #E2DED5;">{{ enquiry.get_preferred_contact_method_display|default:"No preference" }}</td></tr>
+            <tr><td style="padding:8px 0;border-top:1px solid #E2DED5;color:#5B5E59;">Postcode</td><td style="padding:8px 0;border-top:1px solid #E2DED5;">{{ enquiry.postcode }}</td></tr>
+            <tr><td style="padding:8px 0;border-top:1px solid #E2DED5;border-bottom:1px solid #E2DED5;color:#5B5E59;">Received</td><td style="padding:8px 0;border-top:1px solid #E2DED5;border-bottom:1px solid #E2DED5;">{{ enquiry.created_at|date:"j F Y, H:i" }}</td></tr>
+          </table>
+          <p style="margin:24px 0 8px;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#5B5E59;">About the project</p>
+          <p style="margin:0 0 28px;font-size:15px;line-height:1.6;">{{ enquiry.project_description|linebreaksbr }}</p>
+          {% if admin_url %}<a href="{{ admin_url }}" style="display:inline-block;background:#25382F;color:#F8F7F3;text-decoration:none;padding:14px 24px;font-size:15px;">View enquiry</a>{% endif %}
+          <p style="margin:24px 0 0;font-size:13px;color:#5B5E59;">Reply to this email to contact {{ enquiry.name }} directly.</p>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>

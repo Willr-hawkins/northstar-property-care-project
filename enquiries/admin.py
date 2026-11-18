@@ -20,8 +20,8 @@ class EnquiryNoteInline(admin.StackedInline):
 
 @admin.register(Enquiry)
 class EnquiryAdmin(admin.ModelAdmin):
-    list_display = ["name", "email", "postcode", "service", "status", "created_at"]
-    list_filter = ["status", "service", "created_at"]
+    list_display = ["name", "email", "postcode", "service", "status", "created_at", "notification_status"]
+    list_filter = ["status", "service", "created_at", "notification_status"]
     list_select_related = ["service"]
     search_fields = ["name", "email", "postcode"]
     date_hierarchy = "created_at"
@@ -31,11 +31,13 @@ class EnquiryAdmin(admin.ModelAdmin):
         "name", "email", "phone", "service", "postcode",
         "project_description", "preferred_contact_method",
         "status_history", "created_at", "updated_at",
+        "notification_status", "notification_error",
     ]
     fieldsets = [
         ("Customer", {"fields": ["name", "email", "phone", "preferred_contact_method", "postcode"]}),
         ("Request", {"fields": ["service", "project_description"]}),
         ("Progress", {"fields": ["status", "status_history"]}),
+        ("Notification email", {"fields": ["notification_status", "notification_error"]}),
         ("Record", {"fields": ["created_at", "updated_at"], "classes": ["collapse"]}),
     ]
 

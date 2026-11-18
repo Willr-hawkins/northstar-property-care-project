@@ -1,0 +1,18 @@
+{% autoescape off %}New enquiry from the Northstar website
+
+Name:      {{ enquiry.name }}
+Email:     {{ enquiry.email }}
+Phone:     {{ enquiry.phone|default:"Not given" }}
+Contact:   {{ enquiry.get_preferred_contact_method_display|default:"No preference" }}
+Service:   {{ enquiry.service.title|default:"Not sure yet" }}
+Postcode:  {{ enquiry.postcode }}
+Received:  {{ enquiry.created_at|date:"j F Y, H:i" }}
+
+About the project:
+{{ enquiry.project_description }}
+{% if admin_url %}
+View and update this enquiry:
+{{ admin_url }}
+{% endif %}
+Reply to this email to contact {{ enquiry.name }} directly.
+{% endautoescape %}
